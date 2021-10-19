@@ -152,10 +152,18 @@ input {
 
 }
 
+@media only screen 
+  and (min-device-width: 480px) 
+  and (max-device-width: 1024px)
+  and (-webkit-min-device-pixel-ratio: 2) {
 
+    #floatContainer1{
+      width:80%;
+      margin-left: 10%;
+      border-radius: 10px;
+    }
 
-
-
+  }
 
 
 
