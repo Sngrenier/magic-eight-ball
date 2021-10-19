@@ -1,12 +1,67 @@
 import './App.css';
 import React, { useState} from "react";
 
-//List of potential answers given by the eight-ball
+
+
+export default function App() {
+  const [question, setQuestion] = useState("");
+  const [answer, setAnswer] = useState("");
+
+
+  const getAnswer = (e) => {
+    e.preventDefault();
+    if (!question) {
+      return;
+    }
+    // generate a random answer to display when the user clicks 'get answer' button (or if 'return' key is pressed)
+    const index = Math.floor(Math.random() * answers.length);
+    setAnswer(answers[index]);
+  };
+
+  // add active class and placeholder 
+  const FloatLabel = (() => {
+    const handleFocus = (e) => {
+      const target = e.target;
+      target.parentNode.classList.add('active');
+      target.setAttribute('placeholder', target.getAttribute('data-placeholder'));
+    };
+    // remove active class and placeholder
+    const handleBlur = (e) => {
+      const target = e.target;
+      if(!target.value) {
+        target.parentNode.classList.remove('active');
+      }
+      target.removeAttribute('placeholder');    
+    };  
+    // track the events
+    const bindEvents = (element) => {
+      const floatField = element.querySelector('input');
+      floatField.addEventListener('focus', handleFocus);
+      floatField.addEventListener('blur', handleBlur);    
+    };
+    // DOM elements
+    const init = () => {
+      const floatContainers = document.querySelectorAll('.float-container');
+      floatContainers.forEach((element) => {
+        if (element.querySelector('input').value) {
+            element.classList.add('active');
+        }      
+        bindEvents(element);
+      });
+    };
+    return {
+      init: init
+    };
+  })();
+  FloatLabel.init();
+
+
+  //List of potential answers given by the eight-ball
 const answers = [
-  "It is certain",
-  "It is decidedly so",
+  "It is absolute",
+  "Yes, definitely",
   "Without a doubt",
-  "Yes - definitely",
+  "Not sure",
   "You may rely on it",
   "As I see it, yes",
   "Most likely",
@@ -24,67 +79,6 @@ const answers = [
   "Cannot predict now",
   "Concentrate and ask again"
 ];
-
-
-export default function App() {
-  const [question, setQuestion] = useState("");
-  const [answer, setAnswer] = useState("");
-
-
-  const getAnswer = (e) => {
-    e.preventDefault();
-    if (!question) {
-      return;
-    }
-    //this will generate a random answer to display when the user clicks 'get answer' button (or if 'return' key is pressed)
-    const index = Math.floor(Math.random() * answers.length);
-    setAnswer(answers[index]);
-  };
-
-  const FloatLabel = (() => {
-  
-    // add active class and placeholder 
-    const handleFocus = (e) => {
-      const target = e.target;
-      target.parentNode.classList.add('active');
-      target.setAttribute('placeholder', target.getAttribute('data-placeholder'));
-    };
-    
-    // remove active class and placeholder
-    const handleBlur = (e) => {
-      const target = e.target;
-      if(!target.value) {
-        target.parentNode.classList.remove('active');
-      }
-      target.removeAttribute('placeholder');    
-    };  
-    
-    // register events
-    const bindEvents = (element) => {
-      const floatField = element.querySelector('input');
-      floatField.addEventListener('focus', handleFocus);
-      floatField.addEventListener('blur', handleBlur);    
-    };
-    
-    // get DOM elements
-    const init = () => {
-      const floatContainers = document.querySelectorAll('.float-container');
-      
-      floatContainers.forEach((element) => {
-        if (element.querySelector('input').value) {
-            element.classList.add('active');
-        }      
-        
-        bindEvents(element);
-      });
-    };
-    
-    return {
-      init: init
-    };
-  })();
-  
-  FloatLabel.init();
 
 
   return (
