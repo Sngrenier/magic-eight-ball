@@ -7,6 +7,7 @@ import {useHistory} from 'react-router-dom';
 export default function App() {
   const [question, setQuestion] = useState("");
   const [answer, setAnswer] = useState("");
+  const [history, setHistory] = useState("");
 
 
   const getAnswer = (e) => {
@@ -19,7 +20,14 @@ export default function App() {
     setAnswer(answers[index]);
   };
 
-  const history=useHistory();
+  const getHistory= (e) => {
+    e.preventDefault();
+    if (!answer){
+      return;
+    }
+    const history = Math.floor(answers.length);
+    setHistory(answers[history])
+  }
   // const history = history.push(setAnswer(answers[index].length))
   
   
@@ -108,7 +116,7 @@ const answers = [
           </div>
         </div>
         <button className="submit-btn" type="submit">SUBMIT</button>
-        <button onClick={() => history.push(setAnswer.length)} className="history-btn" type="history">SHOW HISTORY</button>
+        <button onClick={getHistory} className="history-btn" type="history">SHOW HISTORY</button>
       </form>
     
     </div>
