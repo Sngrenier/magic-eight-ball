@@ -1,5 +1,6 @@
 import './App.css';
 import React, { useState} from "react";
+import {useHistory} from 'react-router-dom';
 
 
 
@@ -18,6 +19,10 @@ export default function App() {
     setAnswer(answers[index]);
   };
 
+  const history=useHistory();
+  // const history = history.push(setAnswer(answers[index].length))
+  
+  
   // add active class and placeholder 
   const FloatLabel = (() => {
     const handleFocus = (e) => {
@@ -103,10 +108,9 @@ const answers = [
           </div>
         </div>
         <button className="submit-btn" type="submit">SUBMIT</button>
-        <button className="history-btn" type="history">SHOW HISTORY</button>
+        <button onClick={() => history.push(setAnswer.length)} className="history-btn" type="history">SHOW HISTORY</button>
       </form>
-      <div className="circle">
-      </div>
+    
     </div>
   );
 }
